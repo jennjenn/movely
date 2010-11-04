@@ -1,16 +1,12 @@
 <?php
 session_start();
+require_once('connect.php');
 $uid = $_SESSION['uid'];
 $username = $_GET['username'];
 $theuser = $_SESSION['username'];
 $url = $_GET['url'];
 $delurlid = $_GET['delete'];
 $notes = $_GET['notes'];
-$host = "YOUR_HOST";
-$user = "USERNAME";
-$pass = "PASSWORD";
-$connect = mysql_connect($host, $user, $pass) or die('Could not connect to mysql server.' );	
-$dbselect = mysql_select_db('movely', $connect) or die('Could not select database.');
 if(!empty($_GET['logout'])){
 	session_destroy();
 }

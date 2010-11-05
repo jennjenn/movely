@@ -6,15 +6,20 @@ require_once('connect.php');
 $uid = $_SESSION['uid'];
 $theuser = $_SESSION['username'];
 
-//grab stuff from the form fields
-$username = $_GET['username'];
-$url = $_GET['url'];
-$delurlid = $_GET['delete'];
-$notes = $_GET['notes'];
+//grab stuff from the form fields & clean it up
 
+$username = addslashes($_POST['username']);
+$username = mysql_real_escape_string($username);
+$url = addslashes($_POST['url']);
+$url = mysql_real_escape_string($url);
+$delurlid = mysql_real_escape_string($_GET['delete']);
+$notes = mysql_real_escape_string($_POST['notes']);
+
+//echo $url;
 //log out if requested
 if(!empty($_GET['logout'])){
 	session_destroy();
+	echo "<meta http-equiv='refresh' content='0;/' />";
 }
 ?>
 
@@ -50,11 +55,19 @@ if(!empty($username)){
 	}else{
 		//new user. add to db
 		$query = mysql_query("INSERT INTO users(username) VALUES ('$username')");
+		$query = mysql_query("SELECT * FROM users WHERE username = '$username'");
+		$results = mysql_fetch_assoc($query);
+		$uid = $results['uid'];
+		$_SESSION['uid'] = $uid;
+		$_SESSION['username'] = $username;
+		$uid = $_SESSION['uid'];
+		$theuser = $_SESSION['username'];
 	}	
 }elseif(empty($uid)){
 	//no info for this user. prompt them to log in
 	?>
-	<form method="get" action="/" />
+	<p>enter a username to create an account:</p>
+	<form method="post" action="/" />
 	<input type="text" value="username" name="username" id="username" />
 </form>
 <?php
@@ -64,7 +77,7 @@ if($uid){
 	echo "<p>hai $theuser!</p>";
 	echo '<p>paste your url here</p>';
 	?>
-	<form method="get" action="/" />
+	<form method="post" action="/" />
 	<input type="text" name="url" id="url" width="25" />
 	<br />
 	<textarea name="notes">notes?</textarea>

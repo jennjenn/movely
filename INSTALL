@@ -1,0 +1,7 @@
+INSTALLATION:
+
+1) upload files to server
+2) create DB for service.
+3) edit connect.php with DB info
+4) run contents of createdb.txt in mysql
+5) enjoy

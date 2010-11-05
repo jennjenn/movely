@@ -22,10 +22,11 @@ if(!empty($_GET['logout'])){
 	echo "<meta http-equiv='refresh' content='0;/' />";
 }
 ?>
-
+<!DOCTYPE html>
 <html>
 <head>
 	<title>movely</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
 <?php
@@ -68,20 +69,20 @@ if(!empty($username)){
 	?>
 	<p>enter a username to create an account:</p>
 	<form method="post" action="/" />
-	<input type="text" value="username" name="username" id="username" />
+	<input type="text" value="username" name="username" id="username" onFocus="value=''" />
 </form>
 <?php
 }
 if($uid){
 	//user is logged in and sessioned. let them add schtuff.
 	echo "<p>hai $theuser!</p>";
-	echo '<p>paste your url here</p>';
+	echo '<p>add an entry</p>';
 	?>
 	<form method="post" action="/" />
-	<input type="text" name="url" id="url" width="25" />
+	<input type="text" name="url" id="url" width="25" value="paste the URL here" onFocus="value=''" />
 	<br />
-	<textarea name="notes">notes?</textarea>
-	<input type="submit" value="add" />
+	<textarea name="notes" onFocus="value=''">notes?</textarea>
+	<button name="submit">add</button>
 	<?php
 //show all of this user's links
 $query = mysql_query("SELECT * FROM urls WHERE uid = $uid");

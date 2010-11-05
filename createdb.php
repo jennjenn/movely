@@ -2,7 +2,7 @@
 -- version 3.3.7
 -- http://www.phpmyadmin.net
 --
--- Host: mysql.jennvargas.com
+-- Host: localhost
 -- Generation Time: Nov 04, 2010 at 03:44 PM
 -- Server version: 5.1.39
 -- PHP Version: 5.2.14
